@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import Login from "./pages/login"
+import Login from "./pages/Login"
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
 }
 
-function ProtectedRoute({ children }: ProtectedRouteProps) {
+export function ProtectedRoute({ children }: ProtectedRouteProps) {
   const token = localStorage.getItem('token')
   return token ? <>{children}</> : <Navigate to="/" replace />
 }
