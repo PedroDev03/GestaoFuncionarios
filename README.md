@@ -10,7 +10,7 @@ Aplicação Full Stack de gestão de funcionários desenvolvida com Spring Boot,
 | ORM | Spring Data JPA |
 | Migrations | FlywayDB |
 | Autenticação | JWT (BCrypt) |
-| Frontend | React.js 18 + Vite |
+| Frontend | React.js 18 + Vite + tailwind|
 | Banco de Dados | PostgreSQL 16 |
 | Infraestrutura | Docker + Docker Compose |
 
@@ -67,10 +67,10 @@ Aguarde o build completar. Quando o backend estiver pronto, acesse:
 │   └── Dockerfile
 ├── frontend/                   # SPA React.js
 │   ├── src/
-│   │   ├── pages/              # Login.jsx, Dashboard.jsx
-│   │   ├── services/           # api.js (Axios)
-│   │   ├── App.jsx
-│   │   └── main.jsx
+│   │   ├── pages/              # Login.jsx, Dashboard.tsx
+│   │   ├── services/           # api.ts (Axios)
+│   │   ├── App.tsx
+│   │   └── main.tsx
 │   └── Dockerfile
 └── docker-compose.yml
 ```
@@ -82,6 +82,7 @@ Aguarde o build completar. Quando o backend estiver pronto, acesse:
 | POST | `/api/auth/login` | Não | Login com e-mail e senha |
 | GET | `/api/funcionarios` | Sim | Lista todos os funcionários |
 | POST | `/api/funcionarios` | Sim | Cadastra novo funcionário |
+| PATCH | `/{id}/status` | Não | Alteração do status pelo id |
 
 ### Exemplo de Login
 
