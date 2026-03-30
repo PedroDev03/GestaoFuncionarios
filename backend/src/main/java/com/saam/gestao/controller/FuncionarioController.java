@@ -25,4 +25,10 @@ public class FuncionarioController {
     public ResponseEntity<FuncionarioResponse> criar(@RequestBody FuncionarioRequest request) {
         return ResponseEntity.ok(funcionarioService.criar(request));
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<FuncionarioResponse> alterarStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> body) {
+        String novoStatus = body.get("status");
+        return ResponseEntity.ok(funcionarioService.alterarStatus(id, novoStatus));
+    }
 }

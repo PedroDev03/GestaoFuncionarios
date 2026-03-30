@@ -96,6 +96,16 @@ export default function Dashboard() {
 
 
 
+  const handleToggleStatus = async (id: number, statusAtual: string) => {
+    const novoStatus = statusAtual.toUpperCase() === 'ATIVO' ? 'Inativo' : 'Ativo';
+    try {
+      await api.patch(`/api/funcionarios/${id}/status`, { status: novoStatus });
+      carregarFuncionarios();
+    } catch (error) {
+      console.error("Erro ao alterar status", error);
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
 
     e.preventDefault()
@@ -360,21 +370,23 @@ export default function Dashboard() {
 
                         <div className="flex justify-center">
 
-                          <span className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider flex items-center gap-2 border ${f.status === 'Ativo'
+                          <button 
+                            onClick={() => handleToggleStatus(f.id, f.status)}
+                            className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider flex items-center gap-2 border cursor-pointer hover:scale-105 transition-transform ${f.status?.toUpperCase() === 'ATIVO'
 
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)]'
+                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)] hover:bg-emerald-500/20'
 
-                            : 'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)]'
+                            : 'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)] hover:bg-rose-500/20'
 
                             }`}>
 
-                            <span className={`w-1.5 h-1.5 rounded-full ${f.status === 'Ativo' ? 'bg-emerald-400' : 'bg-rose-400'
+                            <span className={`w-1.5 h-1.5 rounded-full ${f.status?.toUpperCase() === 'ATIVO' ? 'bg-emerald-400' : 'bg-rose-400'
 
                               }`}></span>
 
                             {f.status.toUpperCase()}
 
-                          </span>
+                          </button>
 
                         </div>
 

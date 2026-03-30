@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from "../services/api"
-import logo from '../assets/logo-saam.png'
 
 export default function Login() {
   const [email, setEmail] = useState('')

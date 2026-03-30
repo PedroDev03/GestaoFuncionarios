@@ -34,4 +34,11 @@ public class FuncionarioService {
     private FuncionarioResponse toResponse(Funcionario f) {
         return new FuncionarioResponse(f.getId(), f.getNome(), f.getDataAdmissao(), f.getSalario(), f.getStatus());
     }
+
+    public FuncionarioResponse alterarStatus(Long id, String novoStatus) {
+        Funcionario funcionario = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        funcionario.setStatus(novoStatus);
+        return toResponse(funcionarioRepository.save(funcionario));
+    }
 }
