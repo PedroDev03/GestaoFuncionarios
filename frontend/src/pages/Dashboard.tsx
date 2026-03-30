@@ -252,6 +252,10 @@ export default function Dashboard() {
 
                 value={dataAdmissao}
 
+                min="2000-01-01"
+
+                max={new Date().toISOString().split("T")[0]}
+
                 onChange={e => setDataAdmissao(e.target.value)}
 
                 className="w-full p-3 rounded-xl border border-gray-700 bg-[#060818] text-white focus:bg-[#060818] focus:border-[#00bbff] focus:ring-2 focus:ring-[#00bbff]/30 outline-none transition-all duration-300"
@@ -268,7 +272,7 @@ export default function Dashboard() {
 
               type="submit"
 
-              className="w-full h-[52px] bg-[#00bbff] hover:bg-[#009ee6] active:bg-[#008acc] text-white font-bold tracking-wide rounded-xl shadow-[0_0_15px_rgba(0,187,255,0.3)] hover:shadow-[0_0_25px_rgba(0,187,255,0.5)] transition-all duration-300 flex items-center justify-center gap-2"
+              className="w-full h-[52px] bg-[#00bbff] cursor-pointer hover:bg-[#009ee6] active:bg-[#008acc] text-white font-bold tracking-wide rounded-xl shadow-[0_0_15px_rgba(0,187,255,0.3)] hover:shadow-[0_0_25px_rgba(0,187,255,0.5)] transition-all duration-300 flex items-center justify-center gap-2"
 
             >
 
@@ -370,15 +374,15 @@ export default function Dashboard() {
 
                         <div className="flex justify-center">
 
-                          <button 
+                          <button
                             onClick={() => handleToggleStatus(f.id, f.status)}
                             className={`px-4 py-1.5 rounded-full text-xs font-bold tracking-wider flex items-center gap-2 border cursor-pointer hover:scale-105 transition-transform ${f.status?.toUpperCase() === 'ATIVO'
 
-                            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)] hover:bg-emerald-500/20'
+                              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_10px_rgba(16,185,129,0.1)] hover:bg-emerald-500/20'
 
-                            : 'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)] hover:bg-rose-500/20'
+                              : 'bg-rose-500/10 text-rose-400 border-rose-500/20 shadow-[0_0_10px_rgba(244,63,94,0.1)] hover:bg-rose-500/20'
 
-                            }`}>
+                              }`}>
 
                             <span className={`w-1.5 h-1.5 rounded-full ${f.status?.toUpperCase() === 'ATIVO' ? 'bg-emerald-400' : 'bg-rose-400'
 
