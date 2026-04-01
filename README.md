@@ -1,4 +1,4 @@
-# Gestão de Funcionários - SAAM
+# Gestão de Funcionários
 
 Aplicação Full Stack de gestão de funcionários desenvolvida com Spring Boot, React.js, typescript e PostgreSQL.
 
@@ -26,7 +26,7 @@ Nenhuma outra dependência é necessária (Java, Node.js, Maven são executados 
 ```bash
 # Clone o repositório
 git clone <https://github.com/PedroDev03/GestaoFuncionarios.git>
-cd GestaoFuncinarios
+cd GestaoFuncionarios
 
 # Suba todos os serviços
 docker-compose up --build
@@ -43,7 +43,7 @@ Aguarde o build completar. Quando o backend estiver pronto, acesse:
 
 | Campo | Valor |
 |-------|-------|
-| E-mail | `admin@saam.com.br` |
+| E-mail | `admin@gestao.com.br` |
 | Senha | `admin123` |
 
 ## Estrutura do Projeto

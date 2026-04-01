@@ -31,6 +31,30 @@ public class FuncionarioService {
         return toResponse(funcionarioRepository.save(funcionario));
     }
 
+    public FuncionarioResponse deletar(Long id) {
+
+        Funcionario funcionario = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado para exclusão"));
+
+        FuncionarioResponse response = toResponse(funcionario);
+
+        funcionarioRepository.deleteById(id);
+        return response;
+
+    }
+
+    public FuncionarioResponse alterar(Long id, FuncionarioRequest request) {
+        Funcionario funcionario = funcionarioRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Funcionário não encontrado"));
+        funcionario.setNome(request.nome());
+        funcionario.setDataAdmissao(request.dataAdmissao());
+        funcionario.setSalario(request.salario());
+
+        funcionario.setStatus(request.status() != null ? request.status() : "ATIVO");
+
+        return toResponse(funcionarioRepository.save(funcionario));
+    }
+
     private FuncionarioResponse toResponse(Funcionario f) {
         return new FuncionarioResponse(f.getId(), f.getNome(), f.getDataAdmissao(), f.getSalario(), f.getStatus());
     }

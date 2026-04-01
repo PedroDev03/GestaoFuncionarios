@@ -25,10 +25,10 @@ public class DataInitializer implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        if (usuarioRepository.findByEmail("admin@saam.com.br").isEmpty()) {
+        if (usuarioRepository.findByEmail("admin@gestao.com.br").isEmpty()) {
             Usuario admin = new Usuario();
             admin.setNome("Administrador");
-            admin.setEmail("admin@saam.com.br");
+            admin.setEmail("admin@gestao.com.br");
             admin.setSenha(passwordEncoder.encode("admin123"));
             usuarioRepository.save(admin);
         }

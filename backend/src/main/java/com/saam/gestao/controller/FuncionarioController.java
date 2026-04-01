@@ -27,8 +27,20 @@ public class FuncionarioController {
     }
 
     @PatchMapping("/{id}/status")
-    public ResponseEntity<FuncionarioResponse> alterarStatus(@PathVariable Long id, @RequestBody java.util.Map<String, String> body) {
+    public ResponseEntity<FuncionarioResponse> alterarStatus(@PathVariable Long id,
+            @RequestBody java.util.Map<String, String> body) {
         String novoStatus = body.get("status");
         return ResponseEntity.ok(funcionarioService.alterarStatus(id, novoStatus));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FuncionarioResponse> Update(@PathVariable Long id, @RequestBody FuncionarioRequest request) {
+        return ResponseEntity.ok(funcionarioService.alterar(id, request));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<FuncionarioResponse> Delete(@PathVariable Long id) {
+        return ResponseEntity.ok(funcionarioService.deletar(id));
+    }
+
 }
