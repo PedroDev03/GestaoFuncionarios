@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/logo-saam.png';
+
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -15,9 +15,9 @@ export default function Navbar() {
         <div className="flex justify-between h-[70px] items-center">
 
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center gap-3">
+          {/* <div className="flex-shrink-0 flex items-center gap-3">
             <img src={logo} alt="SAAM Logo" className="h-10 w-auto brightness-0 invert" style={{ filter: 'brightness(0) invert(1)' }} />
-          </div>
+          </div> */}
 
           {/* Links e Menus (Baseado no Exemplo) */}
           <div className="hidden lg:flex items-center gap-6 font-semibold text-sm">
