@@ -4,6 +4,7 @@ import api from "../services/api"
 
 import Navbar from '../components/Navbar'
 
+import { LuPencilLine } from 'react-icons/lu'
 
 
 interface Funcionario {
@@ -32,6 +33,7 @@ export default function Dashboard() {
 
   const [dataAdmissao, setDataAdmissao] = useState('')
 
+  const [funcionarioEdicao, setFuncionarioEdicao] = useState<Funcionario | null>(null)
 
 
   useEffect(() => {
@@ -84,7 +86,19 @@ export default function Dashboard() {
 
   }
 
-
+  const alterarFuncionario = async (dados: Funcionario) => {
+    try {
+      await api.put(`/api/funcionarios/${dados.id}`, {
+        nome: dados.nome,
+        dataAdmissao: dados.dataAdmissao,
+        salario: dados.salario,
+        status: dados.status
+      });
+      carregarFuncionarios();
+    } catch (error) {
+      console.error("Erro ao alterar funcionário", error);
+    }
+  }
 
   const handleSalarioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
@@ -323,7 +337,7 @@ export default function Dashboard() {
             <table className="w-full border-collapse text-left text-sm whitespace-nowrap">
 
               <thead>
-
+                {/* colunas */}
                 <tr className="bg-[#060818] border-b border-white/10">
 
                   <th className="px-6 py-4 font-semibold text-gray-400 uppercase tracking-widest text-xs">Identificação</th>
@@ -331,6 +345,8 @@ export default function Dashboard() {
                   <th className="px-6 py-4 font-semibold text-gray-400 uppercase tracking-widest text-xs">Remuneração</th>
 
                   <th className="px-6 py-4 font-semibold text-gray-400 uppercase tracking-widest text-xs">Data de Admissão</th>
+
+                  <th className="px-6 py-4 font-semibold text-gray-400 uppercase tracking-widest text-xs">Editar</th>
 
                   <th className="px-6 py-4 font-semibold text-gray-400 uppercase tracking-widest text-xs text-center">Status</th>
 
@@ -340,6 +356,7 @@ export default function Dashboard() {
 
               <tbody className="divide-y divide-white/5">
 
+                {/* linhas */}
                 {funcionarios.length === 0 ? (
 
                   <tr>
@@ -368,6 +385,16 @@ export default function Dashboard() {
 
                       <td className="px-6 py-4 text-gray-300 font-medium group-hover:text-white transition-colors">{f.dataAdmissao}</td>
 
+                      {/* NOVA COLUNA: Ações / Editar */}
+                      <td className="px-6 py-4 w-20">
+                        <button
+                          onClick={() => setFuncionarioEdicao(f)} // Abre o formulário com os dados
+                          className="text-blue-400 cursor-pointer hover:text-blue-300 hover:scale-110 transition-all p-2 bg-blue-500/10 rounded-lg border border-blue-500/20"
+                          title="Editar Funcionário"
+                        >
+                          <LuPencilLine size={20} />
+                        </button>
+                      </td>
 
 
                       <td className="px-6 py-4 w-32">
@@ -401,14 +428,72 @@ export default function Dashboard() {
                   ))
 
                 )}
-
               </tbody>
+
 
             </table>
 
           </div>
 
         </div>
+
+        {/* Modal de Edição */}
+        {funcionarioEdicao && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+            <div className="bg-[#1a1a1a] border border-white/10 p-8 rounded-2xl w-full max-w-md shadow-2xl relative">
+              <h2 className="text-xl font-bold text-white mb-6">Alterar Colaborador</h2>
+
+              <form onSubmit={(e) => {
+                e.preventDefault();
+                const form = e.currentTarget as HTMLFormElement;
+                const formData = new FormData(form);
+                const dadosAtualizados: Funcionario = {
+                  ...funcionarioEdicao,
+                  nome: formData.get('nome') as string,
+                  salario: Number(formData.get('salario')),
+                  dataAdmissao: formData.get('dataAdmissao') as string,
+                  status: formData.get('status') as string
+                };
+                alterarFuncionario(dadosAtualizados); // Sua função de Update
+                setFuncionarioEdicao(null); // Fecha o form
+              }} className="space-y-4">
+
+                <div>
+                  <label className="text-xs text-gray-400 block mb-1">Nome</label>
+                  <input name="nome" defaultValue={funcionarioEdicao.nome} className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:border-blue-500 outline-none" required />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-xs text-gray-400 block mb-1">Salário</label>
+                    <input name="salario" type="number" step="0.01" defaultValue={funcionarioEdicao.salario} className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white outline-none" required />
+                  </div>
+                  <div>
+                    <label className="text-xs text-gray-400 block mb-1">Status</label>
+                    <select name="status" defaultValue={funcionarioEdicao.status} className="w-full bg-[#2a2a2a] border border-white/10 rounded-lg p-2 text-white outline-none">
+                      <option value="ATIVO">ATIVO</option>
+                      <option value="INATIVO">INATIVO</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-xs text-gray-400 block mb-1">Data Admissão</label>
+                  <input name="dataAdmissao" type="date" defaultValue={funcionarioEdicao.dataAdmissao} className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white outline-none" required />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button type="button" onClick={() => setFuncionarioEdicao(null)} className="flex-1 px-4 py-2 bg-white/5 text-gray-300 rounded-lg hover:bg-white/10 transition-colors cursor-pointer">
+                    Cancelar
+                  </button>
+                  <button type="submit" className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-500 transition-colors font-bold cursor-pointer">
+                    Salvar Alterações
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
 
       </main>
 

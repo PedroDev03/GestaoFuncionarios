@@ -89,7 +89,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full h-[54px] mt-4 bg-[#00bbff] hover:bg-[#009ee6] active:bg-[#008acc] text-[#060818] uppercase font-bold tracking-widest rounded-xl shadow-[0_0_20px_rgba(0,187,255,0.4)] hover:shadow-[0_0_30px_rgba(0,187,255,0.6)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3"
+            className="cursor-pointer w-full h-[54px] mt-4 bg-[#00bbff] hover:bg-[#009ee6] active:bg-[#008acc] text-[#060818] uppercase font-bold tracking-widest rounded-xl shadow-[0_0_20px_rgba(0,187,255,0.4)] hover:shadow-[0_0_30px_rgba(0,187,255,0.6)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3"
           >
             Fazer Login
             <svg className="w-5 h-5 text-[#060818]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
