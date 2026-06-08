@@ -20,6 +20,18 @@ export default function Login() {
     }
   }
 
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setErro('')
+    try {
+      const { data } = await api.post('/api/auth/register', { email, senha })
+      navigate('/cadastrar')
+    } catch {
+      setErro('E-mail ou senha inválidos.')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#060818] flex items-center justify-center p-4 font-sans relative overflow-hidden">
       {/* Background Decorativo Estilo Neon */}
@@ -93,6 +105,16 @@ export default function Login() {
           >
             Fazer Login
             <svg className="w-5 h-5 text-[#060818]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+          </button>
+          <button
+            type="submit"
+            onClick={() => navigate('/cadastro')}
+            className="cursor-pointer w-full h-[44px] mt-4 hover:bg-[#009ee6] active:bg-[#008acc] text-white uppercase font-bold tracking-widest rounded-xl shadow-[0_0_20px_rgba(0,187,255,0.4)] hover:shadow-[0_0_30px_rgba(0,187,255,0.6)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-3"
+          >
+            Cadastrar Usuário
+            <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
             </svg>
           </button>
