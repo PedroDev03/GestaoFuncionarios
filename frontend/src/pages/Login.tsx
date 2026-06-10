@@ -21,16 +21,6 @@ export default function Login() {
   }
 
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setErro('')
-    try {
-      const { data } = await api.post('/api/auth/register', { email, senha })
-      navigate('/cadastrar')
-    } catch {
-      setErro('E-mail ou senha inválidos.')
-    }
-  }
 
   return (
     <div className="min-h-screen bg-[#060818] flex items-center justify-center p-4 font-sans relative overflow-hidden">
