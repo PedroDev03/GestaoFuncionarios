@@ -1,11 +1,17 @@
 import { useNavigate } from 'react-router-dom';
-
+import api from '../services/api';
 
 export default function Navbar() {
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
+  const handleLogout = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    try {
+      await api.post('/api/auth/logout');
+    } catch (error) {
+      console.error("Erro ao fazer logout no servidor", error);
+    }
+    localStorage.removeItem('isAuthenticated');
     navigate('/');
   };
 

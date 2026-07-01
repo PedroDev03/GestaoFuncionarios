@@ -2,7 +2,6 @@ package com.saam.gestao.service;
 
 import com.saam.gestao.config.JwtUtil;
 import com.saam.gestao.dto.LoginRequest;
-import com.saam.gestao.dto.LoginResponse;
 import com.saam.gestao.entity.Usuario;
 import com.saam.gestao.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class AuthService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    public LoginResponse login(LoginRequest request) {
+    public String login(LoginRequest request) {
         Usuario usuario = usuarioRepository.findByEmail(request.email())
                 .orElseThrow(() -> new RuntimeException("Credenciais inválidas"));
 
@@ -33,11 +32,10 @@ public class AuthService {
             throw new RuntimeException("Credenciais inválidas");
         }
 
-        String token = jwtUtil.generateToken(usuario.getEmail());
-        return new LoginResponse(token);
+        return jwtUtil.generateToken(usuario.getEmail());
     }
 
-    public LoginResponse Registrar(RegisterRequest request) {
+    public String Registrar(RegisterRequest request) {
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(request.email());
         if (usuarioExistente.isPresent()) {
             throw new RuntimeException("usuário já existe");
@@ -48,8 +46,7 @@ public class AuthService {
             novoUsuario.setSenha(passwordEncoder.encode(request.senha()));
             usuarioRepository.save(novoUsuario);
             
-            String token = jwtUtil.generateToken(novoUsuario.getEmail());
-            return new LoginResponse(token);
+            return jwtUtil.generateToken(novoUsuario.getEmail());
         }
 
     }

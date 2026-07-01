@@ -8,8 +8,8 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const token = localStorage.getItem('token')
-  return token ? <>{children}</> : <Navigate to="/" replace />
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
+  return isAuthenticated ? <>{children}</> : <Navigate to="/" replace />
 }
 
 export default function App() {

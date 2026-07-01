@@ -1,4 +1,5 @@
 package com.saam.gestao.dto;
 
-public record LoginResponse(String token) {
+public record LoginResponse() {
+
 }

@@ -12,8 +12,8 @@ export default function Login() {
     e.preventDefault()
     setErro('')
     try {
-      const { data } = await api.post('/api/auth/login', { email, senha })
-      localStorage.setItem('token', data.token)
+      await api.post('/api/auth/login', { email, senha })
+      localStorage.setItem('isAuthenticated', 'true')
       navigate('/dashboard')
     } catch {
       setErro('E-mail ou senha inválidos.')
